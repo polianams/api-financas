@@ -1,13 +1,13 @@
 const express = require('express');
-const pool = require('./server');
-const route = require('./routes/routes');
+const pool = require('./conexao');
+const rota = require('./rotas/rotas');
 
 const app = express();
-const port = 3000;
+const porta = 3000;
 
 app.use(express.json());
-app.use(route);
+app.use(rota);
 
-app.listen(port, () => {
-  console.log(`O servidor está sendo executado na porta ${port}.`);
+app.listen(porta, () => {
+  console.log(`O servidor está sendo executado na porta ${porta}.`);
 });

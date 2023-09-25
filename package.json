@@ -1,11 +1,10 @@
 {
-  "name": "api-financas",
+  "name": "desafio-backend-m03-b2bt05",
   "version": "1.0.0",
-  "description": "",
+  "description": "![](https://i.imgur.com/xG74tOh.png)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon /src/index.js"
+    "dev": "nodemon ./src/index.js"
   },
   "keywords": [],
   "author": "",
