@@ -79,7 +79,7 @@ npm run dev
 ```
 5. No terminal, aparecerá a seguinte mensagem: `O Servidor está sendo executado na porta 3000.`;
 6. Após exibir a mensagem acima, é necessário configurar o Beekeeper para gerenciar o banco de dados. Siga as configurações do arquivo `conexao.js`, localizado na pasta `src`, para configurar corretamente o Beekeeper;
-7. Logo depois de configurar o Beekeeper, execute o Insomnia e configure um novo ambiente para testar as rotas da API. É possível fazer os testes importando o arquivo `api-financas.json`.
+7. Logo depois de configurar o Beekeeper, execute o Insomnia e configure um novo ambiente para testar as rotas da API. É possível fazer os testes importando o arquivo [`insomnia`](https://github.com/polianams/api-financas/blob/master/insomnia).
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -117,8 +117,6 @@ Contribuições são bem-vindas! Se você quiser melhorar ou adicionar novos rec
 ## 🧙‍♂️ Autora
 
 Projeto Back-end desenvolvido por [Poliana Santos](https://www.linkedin.com/in/polianams/), como desafio do modulo 3 do curso de Desenvolvimento de Software - Foco em Back-end da [Cubos Academy](https://cubos.academy/) ✨
-
----
 
 ## 📝 Licença
 
