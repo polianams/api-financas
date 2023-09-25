@@ -5,7 +5,7 @@
 
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/polianams/api-financas">
   
-  <a href="https://github.com/polianams/api-financas/commits/main">
+  <a href="https://github.com/polianams/api-financas/commits/master">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/polianams/api-financas">
   </a>
   
