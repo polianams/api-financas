@@ -1,13 +1,15 @@
 const pool = require("../../conexao");
 const bcrypt = require("bcrypt");
 
+const { errosGerais, errosUsuario } = require("../../constants/errosMensagens");
+
 const cadastrarUsuario = async (req, res) => {
   const { nome, email, senha } = req.body;
 
   try {
     if (!nome || !email || !senha) {
       return res.status(404).json({
-        mensagem: "Todos os campos obrigatórios devem ser informados.",
+        mensagem: errosGerais.camposObrigatorios,
       });
     }
 
@@ -18,7 +20,7 @@ const cadastrarUsuario = async (req, res) => {
 
     if (rowCount > 0) {
       return res.status(401).json({
-        mensagem: "Já existe usuário cadastrado com o e-mail informado.",
+        mensagem: errosUsuario.usuarioJaExiste,
       });
     }
 
@@ -35,7 +37,7 @@ const cadastrarUsuario = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     return res.status(400).json({
-      mensagem: "Erro interno do servidor",
+      mensagem: errosGerais.erroServidor,
     });
   }
 };

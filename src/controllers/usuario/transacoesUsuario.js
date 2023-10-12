@@ -1,17 +1,22 @@
 const pool = require("../../conexao");
 
+const {
+  errosGerais,
+  errosTransacao,
+} = require("../../constants/errosMensagens");
+
 const cadastrarTransacao = async (req, res) => {
   const { descricao, valor, data, categoria_id, tipo } = req.body;
 
   if (!descricao || !valor || !data || !categoria_id || !tipo) {
-    return res
-      .status(404)
-      .json({ mensagem: "Todos os campos obrigatórios devem ser informados." });
+    return res.status(404).json({
+      mensagem: errosGerais.camposObrigatorios,
+    });
   }
 
   if (tipo !== "entrada" && tipo !== "saida") {
     return res.status(400).json({
-      mensagem: "O campo tipo deve ser exatamente entrada ou saida.",
+      mensagem: errosTransacao.tipoErrado,
     });
   }
 
@@ -23,7 +28,7 @@ const cadastrarTransacao = async (req, res) => {
 
     if (rowCount < 1) {
       return res.status(400).json({
-        mensagem: "A categoria especificada não existe.",
+        mensagem: errosTransacao.categoriaErrada,
       });
     }
 
@@ -44,9 +49,8 @@ const cadastrarTransacao = async (req, res) => {
 
     return res.status(200).json(transacaoCadastrada);
   } catch (error) {
-    console.log(error.message);
     return res.status(400).json({
-      mensagem: "Erro interno do servidor.",
+      mensagem: errosGerais.erroServidor,
     });
   }
 };
@@ -63,20 +67,19 @@ const atualizarTransacao = async (req, res) => {
 
     if (verificarTransacao.rows.length < 1) {
       return res.status(400).json({
-        mensagem:
-          "A transação especificada não existe ou não pertence ao usuário logado.",
+        mensagem: errosTransacao.transacaoNaoEncontrada,
       });
     }
 
     if (!descricao || !valor || !data || !categoria_id || !tipo) {
       return res.status(400).json({
-        mensagem: "Todos os campos obrigatórios devem ser informados.",
+        mensagem: errosGerais.camposObrigatorios,
       });
     }
 
     if (tipo !== "entrada" && tipo !== "saida") {
       return res.status(400).json({
-        mensagem: "O campo tipo deve ser exatamente entrada ou saida.",
+        mensagem: errosTransacao.tipoErrado,
       });
     }
 
@@ -87,7 +90,7 @@ const atualizarTransacao = async (req, res) => {
 
     if (rowCount < 1) {
       return res.status(400).json({
-        mensagem: "A categoria especificada não existe.",
+        mensagem: errosTransacao.categoriaErrada,
       });
     }
 
@@ -98,9 +101,8 @@ const atualizarTransacao = async (req, res) => {
 
     return res.status(204).send();
   } catch (error) {
-    console.log(error.message);
     return res.status(400).json({
-      mensagem: "Erro interno do servidor.",
+      mensagem: errosGerais.erroServidor,
     });
   }
 };
@@ -117,7 +119,7 @@ const deletarTransacao = async (req, res) => {
 
     if (rowCount < 1) {
       return res.status(400).json({
-        mensagem: "Transação não encontrada ou não pertence ao usuário.",
+        mensagem: errosTransacao.transacaoNaoEncontrada,
       });
     }
 
@@ -125,9 +127,8 @@ const deletarTransacao = async (req, res) => {
 
     return res.status(204).send();
   } catch (error) {
-    console.log(error.message);
     return res.status(400).json({
-      mensagem: "Erro interno do servidor.",
+      mensagem: errosGerais.erroServidor,
     });
   }
 };
@@ -158,9 +159,8 @@ const listarTransacoes = async (req, res) => {
 
     return res.status(200).json(resultado);
   } catch (error) {
-    console.log(error.message);
     return res.status(400).json({
-      mensagem: "Erro interno do servidor.",
+      mensagem: errosGerais.erroServidor,
     });
   }
 };
@@ -177,7 +177,7 @@ const detalharTransacao = async (req, res) => {
 
     if (rowCount < 0) {
       return res.status(404).json({
-        mensagem: "Transação não encontrada.",
+        mensagem: errosTransacao.transacaoNaoEncontrada,
       });
     }
 
@@ -188,9 +188,8 @@ const detalharTransacao = async (req, res) => {
 
     return res.status(200).json(rows);
   } catch (error) {
-    console.log(error.message);
     return res.status(400).json({
-      mensagem: "Erro interno do servidor.",
+      mensagem: errosGerais.erroServidor,
     });
   }
 };

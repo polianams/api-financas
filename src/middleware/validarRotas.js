@@ -8,7 +8,7 @@ const validarRotasLogin = async (req, res, next) => {
 
   if (!token) {
     return res.status(401).json({
-      mensagem: "Não autorizado",
+      mensagem: "Não autenticado.",
     });
   }
 
@@ -24,7 +24,7 @@ const validarRotasLogin = async (req, res, next) => {
 
     if (rowCount === 0) {
       return res.status(401).json({
-        mensagem: "Não autorizado",
+        mensagem: "Não autenticado.",
       });
     }
 

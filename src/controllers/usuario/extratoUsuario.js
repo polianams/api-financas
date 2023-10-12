@@ -1,5 +1,7 @@
 const pool = require("../../conexao");
 
+const { errosGerais } = require("../../constants/errosMensagens");
+
 const consultarExtrato = async (req, res) => {
   try {
     const somaEntradas = await pool.query(
@@ -35,7 +37,7 @@ const consultarExtrato = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     return res.status(400).json({
-      mensagem: "Erro interno do servidor.",
+      mensagem: errosGerais.erroServidor,
     });
   }
 };

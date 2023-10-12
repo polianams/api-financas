@@ -1,20 +1,19 @@
 const pool = require("../../conexao");
 const bcrypt = require("bcrypt");
 
+const { errosGerais, errosUsuario } = require("../../constants/errosMensagens");
+
 const detalharUsuario = async (req, res) => {
   try {
     const { rows: usuarioLogado } = await pool.query(
-      `
-        select id, nome, email from usuarios where id = $1
-        `,
+      `select id, nome, email from usuarios where id = $1`,
       [req.usuario.id]
     );
 
     return res.status(200).json(usuarioLogado);
   } catch (error) {
-    console.log(error.message);
     return res.status(400).json({
-      mensagem: "Erro interno do servidor.",
+      mensagem: errosGerais.erroServidor,
     });
   }
 };
@@ -23,9 +22,9 @@ const atualizarUsuario = async (req, res) => {
   const { nome, email, senha } = req.body;
 
   if (!nome || !email || !senha) {
-    return res
-      .status(404)
-      .json({ mensagem: "Todos os campos obrigatórios devem ser informados." });
+    return res.status(404).json({
+      mensagem: errosGerais.camposObrigatorios,
+    });
   }
 
   try {
@@ -36,7 +35,7 @@ const atualizarUsuario = async (req, res) => {
 
     if (rowCount > 0) {
       return res.status(401).json({
-        mensagem: "Já existe usuário cadastrado com o e-mail informado.",
+        mensagem: errosUsuario.usuarioJaExiste,
       });
     }
 
@@ -49,8 +48,9 @@ const atualizarUsuario = async (req, res) => {
 
     return res.status(204).send();
   } catch (error) {
-    console.log(error.message);
-    return res.status(400).json({ mensagem: "Erro interno do servidor." });
+    return res.status(400).json({
+      mensagem: errosGerais.erroServidor,
+    });
   }
 };
 
