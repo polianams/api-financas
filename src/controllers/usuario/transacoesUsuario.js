@@ -1,4 +1,5 @@
 const pool = require("../../conexao");
+const { format } = require("date-fns");
 
 const {
   errosGerais,
@@ -6,9 +7,9 @@ const {
 } = require("../../constants/errosMensagens");
 
 const cadastrarTransacao = async (req, res) => {
-  const { descricao, valor, data, categoria_id, tipo } = req.body;
+  const { descricao, valor, categoria_id, tipo } = req.body;
 
-  if (!descricao || !valor || !data || !categoria_id || !tipo) {
+  if (!descricao || !valor || !categoria_id || !tipo) {
     return res.status(404).json({
       mensagem: errosGerais.camposObrigatorios,
     });
@@ -31,6 +32,9 @@ const cadastrarTransacao = async (req, res) => {
         mensagem: errosTransacao.categoriaErrada,
       });
     }
+
+    let data = new Date();
+    format(data, "yyyy-MM-dd HH:mm:ss");
 
     await pool.query(
       `insert into transacoes (descricao, valor, data, categoria_id, usuario_id, tipo) values ($1, $2, $3, $4, $5, $6) returning *`,
@@ -71,7 +75,7 @@ const atualizarTransacao = async (req, res) => {
       });
     }
 
-    if (!descricao || !valor || !data || !categoria_id || !tipo) {
+    if (!descricao || !valor || !categoria_id || !tipo) {
       return res.status(400).json({
         mensagem: errosGerais.camposObrigatorios,
       });
@@ -93,6 +97,9 @@ const atualizarTransacao = async (req, res) => {
         mensagem: errosTransacao.categoriaErrada,
       });
     }
+
+    let data = new Date();
+    format(data, "yyyy-MM-dd HH:mm:ss");
 
     await pool.query(
       `update transacoes set descricao = $1, valor = $2, data = $3, categoria_id = $4, tipo = $5 where id = $6`,
