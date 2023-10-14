@@ -1,4 +1,4 @@
-# 💰 Projeto Back-end: API - Finanças
+# 💰 💰 Back-end - API REST: Sistema de Finanças
 
 <p align="center">
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/polianams/api-financas?color=%2304D361">
